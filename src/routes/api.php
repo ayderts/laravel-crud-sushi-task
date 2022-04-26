@@ -37,3 +37,6 @@ Route::patch('curriculum/{curriculum_id}/{lecture_id}', [CurriculumController::c
 Route::delete('curriculum/{curriculum_id}/{lecture_id}', [CurriculumController::class, 'delete'])->name('curriculum.delete');
 Route::get('students', [StudentController::class, 'index'])->name('student.index');
 Route::get('student/{student_id}', [StudentController::class, 'show'])->name('student.show');
+Route::post('student', [StudentController::class, 'store'])->name('student.store');
+Route::patch('student/{student_id}', [StudentController::class, 'update'])->name('student.update');
+Route::delete('student/{student_id}', [StudentController::class, 'delete'])->name('student.delete');
