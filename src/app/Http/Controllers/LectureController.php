@@ -19,7 +19,7 @@ class LectureController extends Controller
     public function index(){
         return $this->lectureService->index();
     }
-    public function show($lecture_id){
+    public function show(int $lecture_id){
         $validator = Validator::make(['lecture_id' => $lecture_id], [
             'lecture_id' => 'required|integer|exists:lectures,id',
         ],
@@ -61,7 +61,7 @@ class LectureController extends Controller
         return $this->lectureService->store($request);
     }
 
-    public function update(Request $request,$lecture_id){
+    public function update(Request $request,int $lecture_id){
         $validator = Validator::make($request->all(), [
             'topic' => 'string|unique:lectures,topic',
             'description' => 'required|string',
@@ -81,7 +81,7 @@ class LectureController extends Controller
         }
         return $this->lectureService->update($request,$lecture_id);
     }
-    public function delete($lecture_id){
+    public function delete(int $lecture_id){
         $validator = Validator::make(['lecture_id' => $lecture_id], [
             'lecture_id' => 'required|integer|exists:lectures,id',
         ],

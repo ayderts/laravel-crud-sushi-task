@@ -17,7 +17,7 @@ class GroupController extends Controller
   public function index(){
     return $this->groupService->index();
   }
-    public function showCurriculum($group_id){
+    public function showCurriculum(int $group_id){
         $validator = Validator::make(['group_id' => $group_id], [
             'group_id' => 'required|integer',
         ],
@@ -35,7 +35,7 @@ class GroupController extends Controller
         return $this->groupService->showCurriculum($group_id);
     }
 
-  public function showStudents($group_id){
+  public function showStudents(int $group_id){
       $validator = Validator::make(['group_id' => $group_id], [
           'group_id' => 'required|integer',
       ],
@@ -53,7 +53,7 @@ class GroupController extends Controller
     return $this->groupService->showStudents($group_id);
   }
 
-  public function delete($group_id){
+  public function delete(int $group_id){
       $validator = Validator::make(['group_id' => $group_id], [
           'group_id' => 'required|integer|exists:student_groups,id',
       ],
@@ -96,7 +96,7 @@ class GroupController extends Controller
         return $this->groupService->store($request);
     }
 
-    public function update(Request $request,$group_id){
+    public function update(Request $request,int $group_id){
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|unique:student_groups,name',
             'curriculum_id' => 'prohibited',

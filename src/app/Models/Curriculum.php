@@ -10,6 +10,9 @@ class Curriculum extends Model
 {
   protected $table = 'curriculums';
 
+    protected $fillable = [
+        'name',
+    ];
   public function lectures(): BelongsToMany
   {
     return $this->belongsToMany(Lecture::class, 'curriculum_lectures', 'curriculum_id', 'lecture_id');

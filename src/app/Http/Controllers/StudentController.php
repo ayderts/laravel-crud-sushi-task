@@ -17,7 +17,7 @@ class StudentController extends Controller
         return $this->studentService->index();
     }
 
-    public function show($student_id){
+    public function show(int $student_id){
         $validator = Validator::make(['student_id' => $student_id], [
             'student_id' => 'required|integer|exists:students,id',
         ],
@@ -64,7 +64,7 @@ class StudentController extends Controller
         return $this->studentService->store($request);
     }
 
-    public function update(Request $request,$student_id){
+    public function update(Request $request, int $student_id){
         $validator = Validator::make($request->all(), [
             'name' => 'string',
             'email'=>'email:rfc,dns|unique:students,email',
@@ -86,7 +86,7 @@ class StudentController extends Controller
         }
         return $this->studentService->update($request,$student_id);
     }
-    public function delete($student_id){
+    public function delete(int $student_id){
         $validator = Validator::make(['student_id' => $student_id], [
             'student_id' => 'required|integer|exists:students,id',
         ],

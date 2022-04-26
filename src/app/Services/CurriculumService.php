@@ -40,8 +40,41 @@ class CurriculumService
     }
 
     public function delete($curriculum_id,$lecture_id){
-        $lecture=CurriculumLecture::where('lecture_id', $lecture_id)->where('curriculum_id',$curriculum_id)->firstOrFail();
-        if ($lecture->delete()) {
+        $curriculum=CurriculumLecture::where('lecture_id', $lecture_id)->where('curriculum_id',$curriculum_id)->firstOrFail();
+        if ($curriculum->delete()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Данные успешно удалены'
+            ]);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Что-то пошло не так'
+        ]);
+    }
+    public function storeCurriculum($request)
+    {
+        return response()->json(Curriculum::query()->create($request->all()));
+    }
+
+    public function updateCurriculum($request,int $curriculum_id)
+    {
+        $curriculum = Curriculum::where('id', $curriculum_id)->firstOrFail();
+
+        if ($curriculum->update($request->all())) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Данные успешно сохранены'
+            ]);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Что-то пошло не так'
+        ]);
+    }
+    public function deleteCurriculum($curriculum_id){
+        $curriculum=Curriculum::where('id', $curriculum_id)->firstOrFail();
+        if ($curriculum->delete()) {
             return response()->json([
                 'success' => true,
                 'message' => 'Данные успешно удалены'

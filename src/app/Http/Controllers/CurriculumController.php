@@ -14,7 +14,7 @@ class CurriculumController extends Controller
     }
 
 
-    public function delete($curriculum_id,$lecture_id){
+    public function delete(int $curriculum_id,int $lecture_id){
         $validator = Validator::make(['curriculum_id' => $curriculum_id, 'lecture_id'=>$lecture_id], [
             'curriculum_id' => 'required|integer|exists:curriculum_lectures,curriculum_id',
             'lecture_id' => 'required|integer|exists:curriculum_lectures,lecture_id',
@@ -64,7 +64,7 @@ class CurriculumController extends Controller
         return $this->curriculumService->store($request);
     }
 
-    public function update(Request $request,$curriculum_id,$lecture_id){
+    public function update(Request $request,int $curriculum_id,int $lecture_id){
         $validator = Validator::make($request->all(), [
             'curriculum_id'=>'integer|exists:curriculums,id',
             'lecture_id'=>'integer|exists:lectures,id',
@@ -85,5 +85,57 @@ class CurriculumController extends Controller
             ], 422);
         }
         return $this->curriculumService->update($request,$curriculum_id,$lecture_id);
+    }
+    public function storeCurriculum(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|unique:curriculums,name',
+        ],
+            [
+                'name.string' => 'Поле name должно быть буквенным',
+                'name.required' => 'Введите поле name',
+                'name.unique' => 'Такой план уже имеется',
+            ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->getMessages(),
+            ], 422);
+        }
+        return $this->curriculumService->storeCurriculum($request);
+    }
+
+    public function updateCurriculum(Request $request,int $curriculum_id){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|unique:curriculums,name',
+        ],
+            [
+                'name.string' => 'Поле name должно быть буквенным',
+                'name.required' => 'Введите поле name',
+                'name.unique' => 'Такой план уже имеется',
+            ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->getMessages(),
+            ], 422);
+        }
+        return $this->curriculumService->updateCurriculum($request,$curriculum_id);
+    }
+    public function deleteCurriculum(int $curriculum_id){
+        $validator = Validator::make(['curriculum_id'=>$curriculum_id ],[
+            'curriculum_id' => 'required|integer|exists:curriculums,id'
+        ],
+            [
+                'curriculum_id.required' => 'Введите ID плана',
+                'curriculum_id.integer' => 'ID плана должен быть числовым',
+            ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->getMessages(),
+            ], 422);
+        }
+        return $this->curriculumService->deleteCurriculum($curriculum_id);
     }
 }
