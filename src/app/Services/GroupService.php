@@ -12,11 +12,12 @@ class GroupService
     return response()->json(Group::all());
   }
   public function showStudents($group_id){
-    return response()->json(Group::with('students')->find($group_id));
+    return response()->json(Group::with('students:id,name,email,group_id')->find($group_id)->only('name','students'));
   }
 
     public function showCurriculum($group_id){
-        return response()->json(Group::with('curriculum')->find($group_id));
+        return response()->json(Group::with('curriculum:id,name')->with('curriculum.lectures:id,topic,description')->find($group_id)
+        );
     }
 
     public function delete($group_id){

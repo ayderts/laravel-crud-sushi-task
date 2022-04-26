@@ -7,9 +7,10 @@ use Mockery\Exception;
 
 class LectureService
 {
-
     public function show($lecture_id){
-      return response()->json(Lecture::with('curriculums.groups.students')->find($lecture_id));
+      return response()->json(Lecture::with('curriculums.groups.students:id,name,group_id')
+          ->with('curriculums.groups:id,name,curriculum_id')
+          ->with('curriculums:id,name')->find($lecture_id)->only('topic','description','curriculums'));
     }
     public function store($request)
     {
