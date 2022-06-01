@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LectureController;
@@ -24,20 +25,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-/*
-        ПРИМЕЧАНИЕ: при тестировании АПИ использовать
-        Content-Type: application/json
-        Accept: application/json
-*/
 //Создать заказ
-Route::post('order', [OrderController::class, 'store'])->name('order.store');
-//Просмотреть заказ
-Route::get('order/{order_id}', [OrderController::class, 'show'])->name('order.show');
-//Обновить заказ
-Route::patch('order/{order_id}', [OrderController::class, 'update'])->name('order.update');
-//Удалить заказ
-Route::delete('order/{order_id}', [OrderController::class, 'delete'])->name('order.delete');
-//Просмотр всех заказов
-Route::get('orders', [OrderController::class, 'index'])->name('order.index');
+Route::get('/contact-us', [ContactController::class, 'index']);
+Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
 
 
