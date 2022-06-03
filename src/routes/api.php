@@ -5,6 +5,7 @@ use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LectureController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,8 +26,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-//Создать заказ
-Route::get('/contact-us', [ContactController::class, 'index']);
-Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/product', [ProductController::class, 'index']);
 
 
